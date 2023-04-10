@@ -1,11 +1,17 @@
 package com.anghack.blog.controller;
 
+import com.anghack.blog.payload.ApiResponse;
 import com.anghack.blog.payload.UserDto;
 import com.anghack.blog.service.UserService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +35,39 @@ public class UserController {
         UserDto createUserDto = this.userService.createUser(userDto);
                 
         return new ResponseEntity<>(createUserDto, HttpStatus.CREATED);
+    }
+    
+    
+    @PutMapping("/{userId}")
+    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto, @PathVariable("userId") int  idUser){
+        
+        UserDto updatedUser = this.userService.updateUser(userDto, idUser);
+        
+        return ResponseEntity.ok(updatedUser);
+    }
+    
+    
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<ApiResponse> deleteUser(@PathVariable("userId") int idUser){
+        this.userService.deleteUser(idUser);
+        
+        return new ResponseEntity<>(new ApiResponse("User deleted successfuly", true), HttpStatus.OK);
+    }
+    
+    
+    @GetMapping("/")
+    public ResponseEntity<List<UserDto>> getAllUser(){
+        List<UserDto> users = this.userService.getAllUsers();
+        
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+    
+    
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserDto> getSingleUser(@PathVariable("userId") int idUser){
+        UserDto userSelected = this.userService.getUserById(idUser);
+        
+        return ResponseEntity.ok(userSelected);
     }
 
 }
