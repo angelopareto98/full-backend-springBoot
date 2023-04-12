@@ -17,6 +17,8 @@ import com.anghack.backfullcourse.payload.ApiResponse;
 import com.anghack.backfullcourse.payload.UserDto;
 import com.anghack.backfullcourse.service.UserService;
 
+import jakarta.validation.Valid;
+
 /**
  *
  * @author anghack
@@ -29,7 +31,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/")
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto) {
 
         UserDto createUserDto = this.userService.createUser(userDto);
 
@@ -37,7 +39,7 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto, @PathVariable("userId") int idUser) {
+    public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserDto userDto, @PathVariable("userId") int idUser) {
 
         UserDto updatedUser = this.userService.updateUser(userDto, idUser);
 
