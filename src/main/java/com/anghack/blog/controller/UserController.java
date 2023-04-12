@@ -24,49 +24,43 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/users")
 public class UserController {
-    
+
     private final UserService userService;
-    
-    
-    
+
     @PostMapping("/")
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto){
-        
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
+
         UserDto createUserDto = this.userService.createUser(userDto);
-                
+
         return new ResponseEntity<>(createUserDto, HttpStatus.CREATED);
     }
-    
-    
+
     @PutMapping("/{userId}")
-    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto, @PathVariable("userId") int  idUser){
-        
+    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto, @PathVariable("userId") int idUser) {
+
         UserDto updatedUser = this.userService.updateUser(userDto, idUser);
-        
+
         return ResponseEntity.ok(updatedUser);
     }
-    
-    
+
     @DeleteMapping("/{userId}")
-    public ResponseEntity<ApiResponse> deleteUser(@PathVariable("userId") int idUser){
+    public ResponseEntity<ApiResponse> deleteUser(@PathVariable("userId") int idUser) {
         this.userService.deleteUser(idUser);
-        
+
         return new ResponseEntity<>(new ApiResponse("User deleted successfuly", true), HttpStatus.OK);
     }
-    
-    
+
     @GetMapping("/")
-    public ResponseEntity<List<UserDto>> getAllUser(){
+    public ResponseEntity<List<UserDto>> getAllUser() {
         List<UserDto> users = this.userService.getAllUsers();
-        
+
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
-    
-    
+
     @GetMapping("/{userId}")
-    public ResponseEntity<UserDto> getSingleUser(@PathVariable("userId") int idUser){
+    public ResponseEntity<UserDto> getSingleUser(@PathVariable("userId") int idUser) {
         UserDto userSelected = this.userService.getUserById(idUser);
-        
+
         return ResponseEntity.ok(userSelected);
     }
 
