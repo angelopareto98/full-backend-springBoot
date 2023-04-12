@@ -1,8 +1,5 @@
-package com.anghack.blog.controller;
+package com.anghack.backfullcourse.controller;
 
-import com.anghack.blog.payload.ApiResponse;
-import com.anghack.blog.payload.UserDto;
-import com.anghack.blog.service.UserService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,6 +12,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.anghack.backfullcourse.payload.ApiResponse;
+import com.anghack.backfullcourse.payload.UserDto;
+import com.anghack.backfullcourse.service.UserService;
 
 /**
  *

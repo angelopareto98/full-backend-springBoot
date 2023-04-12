@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.anghack</groupId>
-    <artifactId>blog</artifactId>
+    <artifactId>backfullcourse</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Free Backend Course Full backend</name>
-    <description>Project to manage Blog and Student</description>
+    <description>Project to studie full course backend end and best practice</description>
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -42,6 +42,13 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <dependency>
+            <groupId>org.modelmapper.extensions</groupId>
+            <artifactId>modelmapper-spring</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

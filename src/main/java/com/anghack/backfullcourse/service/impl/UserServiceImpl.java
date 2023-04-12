@@ -1,14 +1,17 @@
-package com.anghack.blog.service.impl;
+package com.anghack.backfullcourse.service.impl;
 
-import com.anghack.blog.entity.User;
-import com.anghack.blog.exception.ResourceNotFoundException;
-import com.anghack.blog.payload.UserDto;
-import com.anghack.blog.repository.UserRepo;
-import com.anghack.blog.service.UserService;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import com.anghack.backfullcourse.entity.User;
+import com.anghack.backfullcourse.exception.ResourceNotFoundException;
+import com.anghack.backfullcourse.payload.UserDto;
+import com.anghack.backfullcourse.repository.UserRepo;
+import com.anghack.backfullcourse.service.UserService;
 
 /**
  *
@@ -19,6 +22,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
+    private final ModelMapper modelMapper;
 
     @Override
     public UserDto createUser(UserDto userDto) {
@@ -72,25 +76,25 @@ public class UserServiceImpl implements UserService {
     }
 
     public User dtoToUser(UserDto userDto) {
-        User user = new User();
+        User user = this.modelMapper.map(userDto, User.class);
 
-        user.setId(userDto.getId());
-        user.setName(userDto.getName());
-        user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
-        user.setAbout(userDto.getAbout());
+        // user.setId(userDto.getId());
+        // user.setName(userDto.getName());
+        // user.setEmail(userDto.getEmail());
+        // user.setPassword(userDto.getPassword());
+        // user.setAbout(userDto.getAbout());
 
         return user;
     }
 
     public UserDto userToDto(User user) {
-        UserDto userDto = new UserDto();
+        UserDto userDto = this.modelMapper.map(user, UserDto.class);
 
-        userDto.setId(user.getId());
-        userDto.setName(user.getName());
-        userDto.setEmail(user.getEmail());
-        userDto.setPassword(user.getPassword());
-        userDto.setAbout(user.getAbout());
+        // userDto.setId(user.getId());
+        // userDto.setName(user.getName());
+        // userDto.setEmail(user.getEmail());
+        // userDto.setPassword(user.getPassword());
+        // userDto.setAbout(user.getAbout());
 
         return userDto;
     }

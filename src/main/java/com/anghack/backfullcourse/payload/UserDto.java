@@ -1,4 +1,4 @@
-package com.anghack.blog.payload;
+package com.anghack.backfullcourse.payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

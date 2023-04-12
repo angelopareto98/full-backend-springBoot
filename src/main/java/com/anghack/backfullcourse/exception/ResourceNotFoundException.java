@@ -1,4 +1,4 @@
-package com.anghack.blog.exception;
+package com.anghack.backfullcourse.exception;
 
 import lombok.Data;
 
@@ -7,8 +7,8 @@ import lombok.Data;
  * @author anghack
  */
 @Data
-public class ResourceNotFoundException extends RuntimeException{
-    
+public class ResourceNotFoundException extends RuntimeException {
+
     private String resourceName;
     private String fieldName;
     private long fieldValue;
@@ -19,7 +19,5 @@ public class ResourceNotFoundException extends RuntimeException{
         this.fieldName = fieldName;
         this.fieldValue = fieldValue;
     }
-    
-    
 
 }

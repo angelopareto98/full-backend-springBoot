@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.anghack.blog.repository.UserRepo;
+import com.anghack.backfullcourse.repository.UserRepo;
 
 @SpringBootTest
 class BlogApplicationTests {

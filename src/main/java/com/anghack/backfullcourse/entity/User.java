@@ -1,5 +1,5 @@
 
-package com.anghack.blog.entity;
+package com.anghack.backfullcourse.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

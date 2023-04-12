@@ -1,4 +1,4 @@
-package com.anghack.blog.payload;
+package com.anghack.backfullcourse.payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApiResponse {
-    
+
     private String message;
-    private boolean  success;
+    private boolean success;
 
 }
