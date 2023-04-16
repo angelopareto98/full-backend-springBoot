@@ -1,0 +1,11 @@
+User :
+	id (int)
+	name
+	email
+	password
+	about
+
+Category:
+	categoryId (Integer)
+	categoryTitle (String)
+	categoryDescription (String)
