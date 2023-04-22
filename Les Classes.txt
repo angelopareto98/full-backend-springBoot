@@ -5,7 +5,26 @@ User :
 	password
 	about
 
+	posts (List<Post>, OneToMany(mappedBy = "user", cascade = CascadeType.ALL), fetch = FetchType.LAZY)
+
+
+************************************************************************************************
+
 Category:
 	categoryId (Integer)
 	categoryTitle (String)
 	categoryDescription (String)
+
+	posts (List<Post>, OneToMany(mappedBy = "category", cascade = CascadeType.ALL), fetch = FetchType.LAZY)
+
+************************************************************************************************
+
+Post:
+	postId(Integer)
+	title (String)
+	content (String)
+	imageName (String)
+	addedDate(Date)
+
+	category (Category, ManyToOne; JoinColumn(name = "category_id))
+	user (User, ManyToOne)
