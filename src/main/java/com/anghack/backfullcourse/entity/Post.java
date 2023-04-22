@@ -11,6 +11,7 @@ import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -32,4 +33,11 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    // used Juste this line when we have a infinity loop (When i log the some
+    // results)
+    // @Override
+    // public String toString() {
+    // return "{title: " + title + ", content: " + content + "}";
+    // }
 }

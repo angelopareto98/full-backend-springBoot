@@ -1,5 +1,7 @@
 package com.anghack.backfullcourse;
 
+import java.util.Date;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 public class BlogApplication {
 
 	public static void main(String[] args) {
+		System.out.println("**************************" + new Date() + "*************************");
 		SpringApplication.run(BlogApplication.class, args);
 	}
 
