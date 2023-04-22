@@ -2,6 +2,9 @@ package com.anghack.backfullcourse.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -68,9 +71,13 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getAllPost() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAllPost'");
+    public List<PostDto> getAllPost() {
+        List<Post> allPosts = this.postRepository.findAll();
+
+        List<PostDto> listPostDtos = allPosts.stream().map(post -> this.modelMapper.map(post, PostDto.class))
+                .collect(Collectors.toList());
+
+        return listPostDtos;
     }
 
     @Override
@@ -80,15 +87,25 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getPostByCategory(Integer categoryId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPostByCategory'");
+    public List<PostDto> getPostByCategory(Integer categoryId) {
+        Category category = this.categoryRepo.findById(categoryId)
+                .orElseThrow(() -> new ResourceNotFoundException("Category", "category Id", categoryId));
+        List<PostDto> posts = this.postRepository.findByCategory(category);
+
+        // List<PostDto> listPostDtos = posts.stream().map(post ->
+        // this.modelMapper.map(post, PostDto.class))
+        // .collect(Collectors.toList());
+
+        return posts;
     }
 
     @Override
-    public List<Post> getPostByUser(Integer userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPostByUser'");
+    public List<PostDto> getPostByUser(int userId) {
+        User user = this.userRepo.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "user Id", userId));
+        List<PostDto> posts = this.postRepository.findByUser(user);
+
+        return posts;
     }
 
     @Override
