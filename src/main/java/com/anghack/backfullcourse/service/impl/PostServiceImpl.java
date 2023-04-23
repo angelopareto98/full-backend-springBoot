@@ -59,15 +59,24 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post updatePost(PostDto postDto, Integer postId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updatePost'");
+    public PostDto updatePost(PostDto postDto, Integer postId) {
+        Post postSelected = this.postRepository.findById(postId)
+                .orElseThrow(() -> new ResourceNotFoundException("Post", "post ID", postId));
+        postSelected.setContent(postDto.getContent());
+        postSelected.setTitle(postDto.getTitle());
+        postSelected.setImageName(postDto.getImageName());
+
+        Post updatedPost = this.postRepository.save(postSelected);
+
+        return this.modelMapper.map(updatedPost, PostDto.class);
     }
 
     @Override
     public void deletePost(Integer postId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deletePost'");
+        Post postSelected = this.postRepository.findById(postId)
+                .orElseThrow(() -> new ResourceNotFoundException("Post", "post Id", postId));
+
+        this.postRepository.delete(postSelected);
     }
 
     @Override
@@ -81,9 +90,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post getPostById(Integer postId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPostById'");
+    public PostDto getPostById(Integer postId) {
+        Post post = this.postRepository.findById(postId)
+                .orElseThrow(() -> new ResourceNotFoundException("Post", "post Id", postId));
+
+        return this.modelMapper.map(post, PostDto.class);
     }
 
     @Override
