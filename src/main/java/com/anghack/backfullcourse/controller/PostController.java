@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.anghack.backfullcourse.config.AppConstants;
 import com.anghack.backfullcourse.payload.ApiResponse;
 import com.anghack.backfullcourse.payload.PostDto;
 import com.anghack.backfullcourse.payload.PostResponse;
@@ -38,10 +39,10 @@ public class PostController {
 
     @GetMapping(path = "/all/post")
     public ResponseEntity<PostResponse> getAllPost(
-            @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
-            @RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy,
-            @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir) {
+            @RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+            @RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir) {
 
         PostResponse postsResponse = this.postService.getAllPost(pageNumber, pageSize, sortBy, sortDir);
 
@@ -80,7 +81,7 @@ public class PostController {
     public ResponseEntity<ApiResponse> deletePost(@PathVariable Integer postId) {
         this.postService.deletePost(postId);
 
-        return new ResponseEntity<ApiResponse>(new ApiResponse("Post deleted successfuly", true), HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse("Post deleted successfuly", true), HttpStatus.OK);
     }
 
     @GetMapping(path = "/search/post/{keyTitle}")
