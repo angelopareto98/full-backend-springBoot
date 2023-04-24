@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.anghack.backfullcourse.entity.Post;
 import com.anghack.backfullcourse.payload.PostDto;
+import com.anghack.backfullcourse.payload.PostResponse;
 
 public interface PostService {
     PostDto createPost(PostDto postDto, int userId, Integer categoryId);
@@ -12,7 +13,7 @@ public interface PostService {
 
     void deletePost(Integer postId);
 
-    List<PostDto> getAllPost();
+    PostResponse getAllPost(Integer pageNumber, Integer pageSize);
 
     PostDto getPostById(Integer postId);
 

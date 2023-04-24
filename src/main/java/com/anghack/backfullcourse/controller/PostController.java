@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anghack.backfullcourse.payload.ApiResponse;
 import com.anghack.backfullcourse.payload.PostDto;
+import com.anghack.backfullcourse.payload.PostResponse;
 import com.anghack.backfullcourse.service.PostService;
 
 import lombok.RequiredArgsConstructor;
@@ -35,8 +37,13 @@ public class PostController {
     }
 
     @GetMapping(path = "/all/post")
-    public ResponseEntity<List<PostDto>> getAllPost() {
-        return new ResponseEntity<>(this.postService.getAllPost(), HttpStatus.OK);
+    public ResponseEntity<PostResponse> getAllPost(
+            @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize) {
+
+        PostResponse postsResponse = this.postService.getAllPost(pageNumber, pageSize);
+
+        return new ResponseEntity<>(postsResponse, HttpStatus.OK);
     }
 
     @GetMapping(path = "/post/{categoryId}")
