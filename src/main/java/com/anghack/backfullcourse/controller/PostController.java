@@ -83,4 +83,12 @@ public class PostController {
         return new ResponseEntity<ApiResponse>(new ApiResponse("Post deleted successfuly", true), HttpStatus.OK);
     }
 
+    @GetMapping(path = "/search/post/{keyTitle}")
+    public ResponseEntity<List<PostDto>> searchPostByTitle(@PathVariable(name = "keyTitle") String keyTitle) {
+        List<PostDto> resultSearchBytitle = this.postService.searchPostsByTitle(keyTitle);
+
+        return new ResponseEntity<>(resultSearchBytitle, HttpStatus.OK);
+
+    }
+
 }
