@@ -1,12 +1,16 @@
 package com.anghack.backfullcourse.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import com.anghack.backfullcourse.config.JwtService;
 import com.anghack.backfullcourse.entity.User;
 import com.anghack.backfullcourse.exception.ResourceNotFoundException;
 import com.anghack.backfullcourse.payload.UserDto;
@@ -23,6 +27,8 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
     private final ModelMapper modelMapper;
+    private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
     @Override
     public UserDto createUser(UserDto userDto) {
@@ -75,6 +81,19 @@ public class UserServiceImpl implements UserService {
         this.userRepo.delete(user);
     }
 
+    @Override
+    public Object login(UserDto userDto) {
+        authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(userDto.getEmail(), userDto.getPassword()));
+
+        User user = userRepo.findByEmail(userDto.getEmail());
+
+        var jwtToken = jwtService.generateToken(user);
+
+        return jwtToken;
+
+    }
+
     public User dtoToUser(UserDto userDto) {
         User user = this.modelMapper.map(userDto, User.class);
 
@@ -98,4 +117,5 @@ public class UserServiceImpl implements UserService {
 
         return userDto;
     }
+
 }

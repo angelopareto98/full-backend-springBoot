@@ -18,4 +18,6 @@ public interface UserService {
     List<UserDto> getAllUsers();
 
     void deleteUser(Integer userId);
+
+    Object login(UserDto userDto);
 }

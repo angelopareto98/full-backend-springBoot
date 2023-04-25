@@ -30,7 +30,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/")
+    @PostMapping("/auth/register")
     public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto) {
 
         UserDto createUserDto = this.userService.createUser(userDto);
@@ -65,6 +65,12 @@ public class UserController {
         UserDto userSelected = this.userService.getUserById(idUser);
 
         return ResponseEntity.ok(userSelected);
+    }
+
+    @PostMapping("/auth/login")
+    public ResponseEntity<Object> login(@RequestBody UserDto userDto) {
+        Object jwt = this.userService.login(userDto);
+        return new ResponseEntity<>(jwt, HttpStatus.OK);
     }
 
 }
