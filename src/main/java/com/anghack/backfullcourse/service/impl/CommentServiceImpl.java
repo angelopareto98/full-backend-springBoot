@@ -1,10 +1,7 @@
 package com.anghack.backfullcourse.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -41,8 +38,15 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentDto updateComment(CommentDto commentDto, int idComment) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateComment'");
+        Comment comment = this.commentRepo.findById(idComment)
+                .orElseThrow(() -> new ResourceNotFoundException("Comment", "comment id", idComment));
+
+        comment.setContent(commentDto.getContent());
+
+        Comment commentUpdated = this.commentRepo.save(comment);
+
+        return this.modelMapper.map(commentUpdated, CommentDto.class);
+
     }
 
     @Override
@@ -56,14 +60,19 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentDto getCommentById(int idComment) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCommentById'");
+        Comment commentFind = this.commentRepo.findById(idComment)
+                .orElseThrow(() -> new ResourceNotFoundException("Comment", "comment id", idComment));
+        CommentDto commentDtoFind = this.modelMapper.map(commentFind, CommentDto.class);
+
+        return commentDtoFind;
     }
 
     @Override
     public void deleteComment(int idComment) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteComment'");
+        Comment commentFind = this.commentRepo.findById(idComment)
+                .orElseThrow(() -> new ResourceNotFoundException("Comment", "comment id", idComment));
+
+        this.commentRepo.delete(commentFind);
     }
 
 }

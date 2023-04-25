@@ -1,7 +1,9 @@
 package com.anghack.backfullcourse.payload;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.anghack.backfullcourse.entity.Comment;
@@ -23,6 +25,6 @@ public class PostDto {
     private CategoryDto category;
 
     private UserDto user;
-    private Set<Comment> comments = new HashSet<>();
+    private List<CommentDto> comments = new ArrayList();
 
 }

@@ -1,7 +1,9 @@
 package com.anghack.backfullcourse.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -40,7 +42,7 @@ public class Post {
     private User user;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Comment> comments = new HashSet<>();
+    private List<Comment> comments = new ArrayList();
 
     // used Juste this line when we have a infinity loop (When i log the some
     // results)
