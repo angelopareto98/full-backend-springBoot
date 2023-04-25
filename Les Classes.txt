@@ -7,6 +7,8 @@ User :
 
 	posts (List<Post>, OneToMany(mappedBy = "user", cascade = CascadeType.ALL), fetch = FetchType.LAZY)
 
+	comments (HasSet<Commment>, OneToMany(mappedBy = "post", cascade = CascadeType.ALL), fetch = FetchType.LAZY)
+
 
 ************************************************************************************************
 
@@ -28,3 +30,10 @@ Post:
 
 	category (Category, ManyToOne; JoinColumn(name = "category_id))
 	user (User, ManyToOne)
+
+
+*******************************************************************************************************
+Comment:
+	id(int)
+	content(String)
+	post(Post, ManyToOne;)
