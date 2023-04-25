@@ -11,5 +11,5 @@ import com.anghack.backfullcourse.entity.User;
  */
 @Repository
 public interface UserRepo extends JpaRepository<User, Integer> {
-
+    User findByEmail(String email);
 }
