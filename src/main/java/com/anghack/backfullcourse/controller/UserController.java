@@ -3,6 +3,7 @@ package com.anghack.backfullcourse.controller;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anghack.backfullcourse.payload.ApiResponse;
+import com.anghack.backfullcourse.payload.ApiResult;
 import com.anghack.backfullcourse.payload.AuthenticationRequest;
 import com.anghack.backfullcourse.payload.UserDto;
 import com.anghack.backfullcourse.service.UserService;
@@ -55,17 +57,27 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<UserDto>> getAllUser() {
+    public ResponseEntity<ApiResult> getAllUser() {
         List<UserDto> users = this.userService.getAllUsers();
 
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        ApiResult apiResult = new ApiResult();
+        apiResult.setCode(200);
+        apiResult.setSuccess(true);
+        apiResult.setData(users);
+
+        return new ResponseEntity<>(apiResult, HttpStatus.OK);
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<UserDto> getSingleUser(@PathVariable("userId") int idUser) {
+    public ResponseEntity<ApiResult> getSingleUser(@PathVariable("userId") int idUser) {
         UserDto userSelected = this.userService.getUserById(idUser);
 
-        return ResponseEntity.ok(userSelected);
+        ApiResult apiResult = new ApiResult();
+        apiResult.setCode(200);
+        apiResult.setSuccess(true);
+        apiResult.setData(userSelected);
+
+        return ResponseEntity.ok(apiResult);
     }
 
     @PostMapping("/auth/login")

@@ -10,8 +10,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import com.anghack.backfullcourse.exception.ResourceNotFoundException;
 import com.anghack.backfullcourse.repository.UserRepo;
 
 import lombok.RequiredArgsConstructor;
