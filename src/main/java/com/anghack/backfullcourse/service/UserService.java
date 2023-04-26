@@ -2,6 +2,7 @@ package com.anghack.backfullcourse.service;
 
 import java.util.List;
 
+import com.anghack.backfullcourse.payload.AuthenticationRequest;
 import com.anghack.backfullcourse.payload.UserDto;
 
 /**
@@ -19,5 +20,5 @@ public interface UserService {
 
     void deleteUser(Integer userId);
 
-    Object login(UserDto userDto);
+    Object login(AuthenticationRequest authenticationRequest);
 }

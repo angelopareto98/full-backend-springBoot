@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anghack.backfullcourse.payload.ApiResponse;
+import com.anghack.backfullcourse.payload.AuthenticationRequest;
 import com.anghack.backfullcourse.payload.UserDto;
 import com.anghack.backfullcourse.service.UserService;
 
@@ -68,8 +69,8 @@ public class UserController {
     }
 
     @PostMapping("/auth/login")
-    public ResponseEntity<Object> login(@RequestBody UserDto userDto) {
-        Object jwt = this.userService.login(userDto);
+    public ResponseEntity<Object> login(@RequestBody AuthenticationRequest authenticationRequest) {
+        Object jwt = this.userService.login(authenticationRequest);
         return new ResponseEntity<>(jwt, HttpStatus.OK);
     }
 

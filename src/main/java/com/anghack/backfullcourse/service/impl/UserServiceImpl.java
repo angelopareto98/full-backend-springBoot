@@ -8,11 +8,14 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.anghack.backfullcourse.config.JwtService;
+import com.anghack.backfullcourse.entity.Role;
 import com.anghack.backfullcourse.entity.User;
 import com.anghack.backfullcourse.exception.ResourceNotFoundException;
+import com.anghack.backfullcourse.payload.AuthenticationRequest;
 import com.anghack.backfullcourse.payload.UserDto;
 import com.anghack.backfullcourse.repository.UserRepo;
 import com.anghack.backfullcourse.service.UserService;
@@ -29,10 +32,13 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDto createUser(UserDto userDto) {
         User user = this.dtoToUser(userDto);
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setRole(Role.USER);
 
         User savedUser = this.userRepo.save(user);
         return this.userToDto(savedUser);
@@ -82,11 +88,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Object login(UserDto userDto) {
+    public Object login(AuthenticationRequest userDto) {
         authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(userDto.getEmail(), userDto.getPassword()));
 
-        User user = userRepo.findByEmail(userDto.getEmail());
+        User user = userRepo.findByEmail(userDto.getEmail())
+                .orElseThrow(() -> new ResourceNotFoundException("UserDetails", "User details " + userDto, 0));
 
         var jwtToken = jwtService.generateToken(user);
 
