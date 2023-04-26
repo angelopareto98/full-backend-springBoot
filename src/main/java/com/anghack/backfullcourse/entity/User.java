@@ -37,7 +37,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "user_name", nullable = false, length = 100)
     private String name;
