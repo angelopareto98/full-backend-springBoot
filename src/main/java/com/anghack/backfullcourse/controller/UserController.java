@@ -1,5 +1,6 @@
 package com.anghack.backfullcourse.controller;
 
+import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,8 @@ import com.anghack.backfullcourse.payload.ApiResult;
 import com.anghack.backfullcourse.payload.AuthenticationRequest;
 import com.anghack.backfullcourse.payload.UserDto;
 import com.anghack.backfullcourse.service.UserService;
+import com.anghack.backfullcourse.util.QrcodeGenerator;
+import com.google.zxing.WriterException;
 
 import jakarta.validation.Valid;
 
@@ -34,9 +37,11 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/auth/register")
-    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto) throws WriterException, IOException {
 
         UserDto createUserDto = this.userService.createUser(userDto);
+
+        QrcodeGenerator.generateQRCode(createUserDto);
 
         return new ResponseEntity<>(createUserDto, HttpStatus.CREATED);
     }
