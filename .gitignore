@@ -34,3 +34,4 @@ build/
 
 images/
 imgQRCode/
+src/main/resources/application.properties
