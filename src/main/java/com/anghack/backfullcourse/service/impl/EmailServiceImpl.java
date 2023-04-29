@@ -9,11 +9,9 @@ import com.anghack.backfullcourse.service.EmailService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class EmailServiceImpl implements EmailService {
 
     private final JavaMailSender javaMailSender;
@@ -26,8 +24,6 @@ public class EmailServiceImpl implements EmailService {
         helper.setTo(to);
         helper.setSubject(subject);
         helper.setText(text);
-
-        log.info(text + "****************************************");
 
         javaMailSender.send(message);
     }
